@@ -3,29 +3,21 @@ from app.states.recording_state import RecordingState
 
 
 def confirmation_dialog() -> rx.Component:
-    return rx.radix.alert_dialog.root(
-        rx.radix.alert_dialog.trigger(
-            rx.el.button(
-                "Hidden Trigger",
-                class_name="hidden",
-                id="dialog-trigger",
-                on_click=RecordingState.set_show_confirmation(True),
-            )
-        ),
-        rx.radix.alert_dialog.content(
-            rx.radix.alert_dialog.title("Upload Recording?"),
-            rx.radix.alert_dialog.description(
+    return rx.radix.primitives.dialog.root(
+        rx.radix.primitives.dialog.content(
+            rx.radix.primitives.dialog.title("Upload Recording?"),
+            rx.radix.primitives.dialog.description(
                 "Would you like to upload the recorded video for processing?"
             ),
             rx.el.div(
-                rx.radix.alert_dialog.cancel(
+                rx.radix.primitives.dialog.close(
                     rx.el.button(
                         "Discard",
                         on_click=RecordingState.reset_recording,
                         class_name="bg-gray-200 text-gray-800 px-4 py-2 rounded-md font-medium hover:bg-gray-300",
                     )
                 ),
-                rx.radix.alert_dialog.action(
+                rx.radix.primitives.dialog.close(
                     rx.el.button(
                         "Upload",
                         on_click=RecordingState.upload_recorded_video,
@@ -37,6 +29,7 @@ def confirmation_dialog() -> rx.Component:
             class_name="bg-white p-6 rounded-lg shadow-lg",
         ),
         open=RecordingState.show_confirmation,
+        on_open_change=RecordingState.set_show_confirmation,
     )
 
 

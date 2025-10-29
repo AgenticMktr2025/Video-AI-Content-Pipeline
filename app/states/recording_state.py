@@ -40,6 +40,7 @@ class RecordingState(rx.State):
     if (window.mediaRecorder && window.mediaRecorder.state === 'recording') {
         window.mediaRecorder.stop();
         _sendEvent(JSON.parse('{"name": "recording_state.RecordingState.set_is_recording", "payload": {"value": false}}'));
+        _sendEvent(JSON.parse('{"name": "recording_state.RecordingState.set_show_confirmation", "payload": {"value": true}}'));
     }
     """
 
@@ -70,7 +71,6 @@ class RecordingState(rx.State):
 
     @rx.event
     def handle_recording_data(self, data: str):
-        self.show_confirmation = True
         return rx.call_script(f"_setLocalStorage('recorded_video_data', '{data}')")
 
     @rx.event
