@@ -1,5 +1,4 @@
 
 reflex==0.8.17
 openai
-reflex-monaco
-boto3
+PyGithub
